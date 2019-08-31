@@ -1,5 +1,5 @@
 # Software-Engineering-Project-1
-## Contact Manager
+## Team
 * Hung - The Best
 * Anthony Hevia - Also The Best
 * Justin Bang - Pretty Cool
