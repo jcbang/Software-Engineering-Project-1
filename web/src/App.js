@@ -179,6 +179,7 @@ class RegisterBox extends Component {
     username: "",
     email: "",
     password: "",
+    confirmPassword: "",
     errors: [],
     pwdStrength: null
   };
@@ -233,6 +234,16 @@ class RegisterBox extends Component {
       this.showValidationErr("password", "Please enter a password.");
       registerSuccess = false;
     }
+    if (this.state.confirmPassword == "") {
+      this.showValidationErr(
+        "confirmPassword",
+        "Please confirm your password."
+      );
+      registerSuccess = false;
+    } else if (this.state.confirmPassword !== this.state.password) {
+      this.showValidationErr("confirmPassword", "Passwords do not match.");
+      registerSuccess = false;
+    }
 
     if (registerSuccess) {
       alert(
@@ -251,7 +262,8 @@ class RegisterBox extends Component {
   render() {
     let usernameErr = null,
       passwordErr = null,
-      emailErr = null;
+      emailErr = null,
+      confirmPasswordErr = null;
 
     for (let err of this.state.errors) {
       if (err.elm == "username") {
@@ -262,6 +274,9 @@ class RegisterBox extends Component {
       }
       if (err.elm == "password") {
         passwordErr = err.msg;
+      }
+      if (err.elm == "confirmPassword") {
+        confirmPasswordErr = err.msg;
       }
     }
 
@@ -337,6 +352,20 @@ class RegisterBox extends Component {
                 ></div>
               </div>
             )}
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="password">Confirm Password</label>
+            <input
+              type="password"
+              name="confirmPassword"
+              className="login-input"
+              placeholder="Confirm Password"
+              onChange={this.onChange}
+            />
+            <small className="danger-error">
+              {confirmPasswordErr ? confirmPasswordErr : ""}
+            </small>
           </div>
 
           <button
