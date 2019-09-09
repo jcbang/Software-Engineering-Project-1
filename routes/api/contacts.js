@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router() 
+const router = express.Router();
 
 // Contact model, needed to make queries
 const Contact = require('../../models/Contact')
@@ -8,8 +8,8 @@ const Contact = require('../../models/Contact')
 // @desc Get ALL Contacts
 // @access Public
 router.get('/', (req, res) => {
-    // We can use Mongoose to return all Item models from the database. 
-    // This returns a promise so we gotta catch 
+    // We can use Mongoose to return all Item models from the database.
+    // This returns a promise so we gotta catch
     Contact.find()
         .then(contacts => res.json(contacts))
         .catch(err => console.log('Oh no something went wrong in routes/api/contacts.js at router.get()!'))
