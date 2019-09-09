@@ -19,8 +19,21 @@ router.get('/', (req, res) => {
 // @desc Create a contact
 // @access Public
 router.post('/', (req, res) => {
+    // Grab the logged in UserID
+    //const loggedInUser = null
+
     const newContact = new Contact({
-        firstName: req.body.firstName
+        userID: req.body.loggedInUser,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        phone: req.body.phone,
+        company: req.body.company,
+        address: {
+            street: req.body.address.street,
+            city: req.body.address.city,
+            state: req.body.address.state,
+            zip: req.body.address.zip
+        }
     })
 
     // Saves it to the database
