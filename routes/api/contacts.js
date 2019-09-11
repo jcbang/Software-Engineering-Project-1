@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
             state: req.body.address.state,
             zip: req.body.address.zip
         }
-    })
+    });
 
     // Saves it to the database
     newContact.save().then(contact => res.json(contact))
