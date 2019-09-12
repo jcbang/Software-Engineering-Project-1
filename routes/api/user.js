@@ -30,6 +30,14 @@ router.post("/register", (req, res) => {
     });
 });
 
+router.post("/login", (req, res) => {
+    // UserAccounts.find({userID: req.user._id})
+    //     .then(user => res.json(user))
+    //     .catch(err => console.log('Oh no something went wrong in routes/api/contacts.js at router.get()!'))
+    res.json({"userID": req.user._id});
+});
+
+
 router.post("/verify", (req, res) => {
     // handle edge cases
 

@@ -2,9 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 // Contact model, needed to make queries
-const UserProfiles = require('../../models/UserProfiles')
+const UserProfiles = require('../../models/UserProfiles');
 
 // link: contacts
+
+//localhost:5000/contacts/
 
 // @route GET items
 // @desc Get ALL Contacts
@@ -17,7 +19,7 @@ router.get('/', (req, res) => {
     UserProfiles.find({userID: req.user._id})
         .then(contacts => res.json(contacts))
         .catch(err => console.log('Oh no something went wrong in routes/api/contacts.js at router.get()!'))
-})
+});
 
 // @route POST api/contacts
 // @desc Create a contact
