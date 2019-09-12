@@ -22,10 +22,10 @@ router.post("/register", (req, res) => {
 
            newUserProfile.save().then(userProfile => console.log("SUCCESSFULLY CREATED A NEW USER PROFILE"))
            newUser.save().then(user => console.log("SUCCESSFULLY CREATED A NEW USER"));
-           res.json({"value": "success"});
+           res.json({success: true});
        } else {
            console.log("USERNAME EXISTS.");
-           res.json({"value": "USERNAME EXISTS"});
+           res.json({success: false});
        }
     });
 });
@@ -39,13 +39,13 @@ router.post("/verify", (req, res) => {
                 if (err) throw err;
 
                 if (checkPassword == 0) {
-                    res.json({"value": "fail"});
+                    res.json({success: false});
                 } else {
-                    res.json({"value": "success"});
+                    res.json({success: true});
                 }
             });
         } else {
-            res.json({"error": "fail"});
+            res.json({success: false});
         }
     });
 });

@@ -50,7 +50,7 @@ router.delete('/:id', (req, res) => {
     // Also nested promises lol
     UserProfiles.findById(req.params.id)
     .then(contact => contact.remove().then(() => res.json({success: true})))
-    .catch(err => res.status(404).json({success: false})) // Return a 404 if you try to delete an item that doesnt exist
+    .catch(err => res.status(404).json({success: false, error: err})) // Return a 404 if you try to delete an item that doesnt exist
 })
 
 
