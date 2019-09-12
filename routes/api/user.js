@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const router = express.Router();
 const UserAccounts = require('../../models/UserAccounts');
 const UserProfiles = require('../../models/UserProfiles');
@@ -23,10 +22,10 @@ router.post("/register", (req, res) => {
 
            newUserProfile.save().then(userProfile => console.log("SUCCESSFULLY CREATED A NEW USER PROFILE"))
            newUser.save().then(user => console.log("SUCCESSFULLY CREATED A NEW USER"));
-           res.send({"value": "success"});
+           res.json({"value": "success"});
        } else {
            console.log("USERNAME EXISTS.");
-           res.send({"value": "USERNAME EXISTS"});
+           res.json({"value": "USERNAME EXISTS"});
        }
     });
 });
@@ -40,13 +39,13 @@ router.post("/verify", (req, res) => {
                 if (err) throw err;
 
                 if (checkPassword == 0) {
-                    res.send({"value": "fail"});
+                    res.json({"value": "fail"});
                 } else {
-                    res.send({"value": "success"});
+                    res.json({"value": "success"});
                 }
             });
         } else {
-            res.send({"error": "fail"});
+            res.json({"error": "fail"});
         }
     });
 });

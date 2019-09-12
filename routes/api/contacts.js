@@ -10,7 +10,7 @@ const UserProfiles = require('../../models/UserProfiles')
 // @desc Get ALL Contacts
 // @access Public
 
-// todo: is this route for a user?, can only access if the user is logged in
+// todo: can only access if the user is logged in
 router.get('/', (req, res) => {
     // We can use Mongoose to return all Item models from the database.
     // This returns a promise so we gotta catch
@@ -23,9 +23,6 @@ router.get('/', (req, res) => {
 // @desc Create a contact
 // @access Public
 router.post('/add', (req, res) => {
-    // Grab the logged in UserID
-    //const loggedInUser = null
-
     const newContact = new UserProfiles({
         userID: req.user._id,
         firstName: req.body.firstName,
@@ -47,6 +44,7 @@ router.post('/add', (req, res) => {
 // @route Delete api/contacts/:id
 // @desc Delete an item
 // @access Public
+// todo: fix it
 router.delete('/:id', (req, res) => {
     // req.params.id fetches it from the URL
     // Also nested promises lol
