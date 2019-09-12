@@ -11,9 +11,6 @@ const UserSchema = new Schema({
     password: {
         type: String,
         trim: true
-    },
-    userProfile: {
-        type: String
     }
 });
 
@@ -25,4 +22,4 @@ const UserSchema = new Schema({
 //     return candidatePassword === this.password;
 // };
 
-module.exports = User = mongoose.model('User', UserSchema)
+module.exports = UserAccounts = mongoose.model('useraccounts', UserSchema)

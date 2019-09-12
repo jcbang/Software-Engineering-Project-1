@@ -1,16 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ObjectId = mongoose.Schema.Types.ObjectId;
 
 // Create Schema
-const ContactSchema = new Schema({
+const UserProfilesSchema = new Schema({
     userID: {
         type: String,
         required: true
     },
     firstName: {
         type: String,
-        required: true
     },
     lastName: {
         type: String
@@ -27,4 +25,4 @@ const ContactSchema = new Schema({
     }
 })
 
-module.exports = Contact = mongoose.model('contact', ContactSchema)
+module.exports = UserProfiles = mongoose.model('userprofiles', UserProfilesSchema)

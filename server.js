@@ -3,10 +3,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 // const db = require('./config/keys').mongoURI; // our access key for the database
 
-// For our routes to work
-const contacts = require('./routes/api/contacts');
-// const user = require('./routes/api/user')
-
 const app = express();
 
 app.use(bodyParser.json());
@@ -19,7 +15,7 @@ mongoose
     .catch(err => console.log(err))
 
 // Use routes
-app.use('/api/contacts', contacts)
+app.use('/contacts', require('./routes/api/contacts'))
 app.use('/user', require('./routes/api/user'));
 
 const port = process.env.PORT || 5000
