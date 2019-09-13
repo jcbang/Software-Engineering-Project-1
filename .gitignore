@@ -1,3 +1,4 @@
+client/node_modules
+client/.vscode
 node_modules
 config
-web/node_modules
