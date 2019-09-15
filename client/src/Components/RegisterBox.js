@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import logo from "../images/logo.jpg";
+import React, { Component } from 'react';
+import logo from '../images/logo.jpg';
 
 class RegisterBox extends Component {
 	state = {
-		email: "",
-		password: "",
-		confirmPassword: "",
+		email: '',
+		password: '',
+		confirmPassword: '',
 		errors: [],
 		pwdStrength: null
 	};
@@ -34,13 +34,13 @@ class RegisterBox extends Component {
 		this.setState({ [e.target.name]: e.target.value });
 		this.clearValidationErr(e.target.name);
 
-		if (e.target.name == "password") {
-			this.setState({ pwdStrength: "weak" });
+		if (e.target.name == 'password') {
+			this.setState({ pwdStrength: 'weak' });
 			if (e.target.value.length > 6) {
-				this.setState({ pwdStrength: "medium" });
+				this.setState({ pwdStrength: 'medium' });
 			}
 			if (e.target.value.length > 12) {
-				this.setState({ pwdStrength: "strong" });
+				this.setState({ pwdStrength: 'strong' });
 			}
 		}
 	};
@@ -48,24 +48,24 @@ class RegisterBox extends Component {
 	submitRegister = e => {
 		let registerSuccess = true;
 
-		if (this.state.email == "") {
-			this.showValidationErr("email", "Please enter an email.");
+		if (this.state.email == '') {
+			this.showValidationErr('email', 'Please enter an email.');
 			registerSuccess = false;
 		}
-		if (this.state.password == "") {
-			this.showValidationErr("password", "Please enter a password.");
+		if (this.state.password == '') {
+			this.showValidationErr('password', 'Please enter a password.');
 			registerSuccess = false;
 		}
-		if (this.state.confirmPassword == "") {
-			this.showValidationErr("confirmPassword", "Please confirm your password.");
+		if (this.state.confirmPassword == '') {
+			this.showValidationErr('confirmPassword', 'Please confirm your password.');
 			registerSuccess = false;
 		} else if (this.state.confirmPassword !== this.state.password) {
-			this.showValidationErr("confirmPassword", "Passwords do not match.");
+			this.showValidationErr('confirmPassword', 'Passwords do not match.');
 			registerSuccess = false;
 		}
 
 		if (registerSuccess) {
-			alert("Email: " + this.state.email + "\n" + "Password: " + this.state.password);
+			alert('Email: ' + this.state.email + '\n' + 'Password: ' + this.state.password);
 		}
 	};
 
@@ -75,13 +75,13 @@ class RegisterBox extends Component {
 			confirmPasswordErr = null;
 
 		for (let err of this.state.errors) {
-			if (err.elm == "email") {
+			if (err.elm == 'email') {
 				emailErr = err.msg;
 			}
-			if (err.elm == "password") {
+			if (err.elm == 'password') {
 				passwordErr = err.msg;
 			}
-			if (err.elm == "confirmPassword") {
+			if (err.elm == 'confirmPassword') {
 				confirmPasswordErr = err.msg;
 			}
 		}
@@ -91,11 +91,11 @@ class RegisterBox extends Component {
 			pwdStrong = false;
 
 		switch (this.state.pwdStrength) {
-			case "strong":
+			case 'strong':
 				pwdStrong = true;
-			case "medium":
+			case 'medium':
 				pwdMedium = true;
-			case "weak":
+			case 'weak':
 				pwdWeak = true;
 		}
 
@@ -115,7 +115,7 @@ class RegisterBox extends Component {
 							placeholder="Email"
 							onChange={this.onChange}
 						/>
-						<small className="danger-error">{emailErr ? emailErr : ""}</small>
+						<small className="danger-error">{emailErr ? emailErr : ''}</small>
 					</div>
 
 					<div className="input-group">
@@ -127,13 +127,13 @@ class RegisterBox extends Component {
 							placeholder="Password"
 							onChange={this.onChange}
 						/>
-						<small className="danger-error">{passwordErr ? passwordErr : ""}</small>
+						<small className="danger-error">{passwordErr ? passwordErr : ''}</small>
 
 						{this.state.password && (
 							<div className="password-state">
-								<div className={"pwd pwd-weak " + (pwdWeak ? "show" : "")}></div>
-								<div className={"pwd pwd-medium " + (pwdMedium ? "show" : "")}></div>
-								<div className={"pwd pwd-strong " + (pwdStrong ? "show" : "")}></div>
+								<div className={'pwd pwd-weak ' + (pwdWeak ? 'show' : '')}></div>
+								<div className={'pwd pwd-medium ' + (pwdMedium ? 'show' : '')}></div>
+								<div className={'pwd pwd-strong ' + (pwdStrong ? 'show' : '')}></div>
 							</div>
 						)}
 					</div>
@@ -148,7 +148,7 @@ class RegisterBox extends Component {
 							onChange={this.onChange}
 						/>
 						<small className="danger-error">
-							{confirmPasswordErr ? confirmPasswordErr : ""}
+							{confirmPasswordErr ? confirmPasswordErr : ''}
 						</small>
 					</div>
 

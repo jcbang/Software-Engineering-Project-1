@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import LoginBox from "./Components/LoginBox";
-import RegisterBox from "./Components/RegisterBox";
-import ReactDOM from "react-dom";
-import "./sass/_loginSty.scss";
+import React, { Component } from 'react';
+import LoginBox from './Components/LoginBox';
+import RegisterBox from './Components/RegisterBox';
+import ReactDOM from 'react-dom';
+import './sass/_loginSty.scss';
 
 class App extends Component {
 	state = {
@@ -31,7 +31,7 @@ class App extends Component {
 					<div className="box-controller">
 						<div
 							className={
-								"controller selected-controller-" + (this.state.isLoginOpen ? "login" : "")
+								'controller selected-controller-' + (this.state.isLoginOpen ? 'login' : '')
 							}
 							onClick={this.showLoginBox}
 						>
@@ -40,8 +40,8 @@ class App extends Component {
 
 						<div
 							className={
-								"controller selected-controller-" +
-								(this.state.isRegisterOpen ? "register" : "")
+								'controller selected-controller-' +
+								(this.state.isRegisterOpen ? 'register' : '')
 							}
 							onClick={this.showRegisterBox}
 						>

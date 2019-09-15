@@ -2,24 +2,24 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    username: {
-        type: String,
-        unique: true,
-        trim: true,
-        required: true
-    },
-    password: {
-        type: String,
-        trim: true
-    },
-    firstName: {
-        type:  String,
-        trim: true
-    },
-    lastName: {
-        type: String,
-        trim: true
-    }
+	username: {
+		type: String,
+		unique: true,
+		trim: true,
+		required: true
+	},
+	password: {
+		type: String,
+		trim: true
+	},
+	firstName: {
+		type: String,
+		trim: true
+	},
+	lastName: {
+		type: String,
+		trim: true
+	}
 });
 
 // UserSchema.methods.comparePassword = function(candidatePassword) {
@@ -30,4 +30,4 @@ const UserSchema = new Schema({
 //     return candidatePassword === this.password;
 // };
 
-module.exports = UserAccounts = mongoose.model('useraccounts', UserSchema)
+module.exports = UserAccounts = mongoose.model('useraccounts', UserSchema);

@@ -1,10 +1,11 @@
-import React, { Component } from "react";
-import logo from "../images/logo.jpg";
+import React, { Component } from 'react';
+import axios from 'axios';
+import logo from '../images/logo.jpg';
 
 class LoginBox extends Component {
 	state = {
-		email: "",
-		password: "",
+		email: '',
+		password: '',
 		errors: []
 	};
 
@@ -36,17 +37,24 @@ class LoginBox extends Component {
 	submitLogin = e => {
 		let loginSuccess = true;
 
-		if (this.state.email == "") {
-			this.showValidationErr("email", "Please enter your email.");
+		if (this.state.email == '') {
+			this.showValidationErr('email', 'Please enter your email.');
 			loginSuccess = false;
 		}
-		if (this.state.password == "") {
-			this.showValidationErr("password", "Please enter your password.");
+		if (this.state.password == '') {
+			this.showValidationErr('password', 'Please enter your password.');
 			loginSuccess = false;
 		}
 
 		if (loginSuccess) {
-			alert("Email: " + this.state.email + "\n" + "Password: " + this.state.password);
+			const userInfo = {
+				username: this.state.email,
+				password: this.state.password
+			};
+
+			axios
+				.post('user/verify', userInfo)
+				.then(res => alert(res.data.success ? 'Access Granted! :)' : 'Acces Denied. :('));
 		}
 	};
 
@@ -55,10 +63,10 @@ class LoginBox extends Component {
 			passwordErr = null;
 
 		for (let err of this.state.errors) {
-			if (err.elm == "email") {
+			if (err.elm == 'email') {
 				emailErr = err.msg;
 			}
-			if (err.elm == "password") {
+			if (err.elm == 'password') {
 				passwordErr = err.msg;
 			}
 		}
@@ -79,7 +87,7 @@ class LoginBox extends Component {
 							placeholder="Email"
 							onChange={this.onChange}
 						/>
-						<small className="danger-error">{emailErr ? emailErr : ""}</small>
+						<small className="danger-error">{emailErr ? emailErr : ''}</small>
 					</div>
 
 					<div className="input-group">
@@ -91,7 +99,7 @@ class LoginBox extends Component {
 							placeholder="Password"
 							onChange={this.onChange}
 						/>
-						<small className="danger-error">{passwordErr ? passwordErr : ""}</small>
+						<small className="danger-error">{passwordErr ? passwordErr : ''}</small>
 					</div>
 
 					<button type="submit" className="login-btn" onClick={this.submitLogin}>
