@@ -13,7 +13,7 @@ const UserProfiles = require('../../models/UserProfiles');
 // @access Public
 
 // todo: can only access if the user is logged in
-router.get('/', (req, res) => {
+router.get('/getAllContacts', (req, res) => {
 	// We can use Mongoose to return all Item models from the database.
 	// This returns a promise so we gotta catch
 	UserProfiles.find({ userID: req.user._id })
