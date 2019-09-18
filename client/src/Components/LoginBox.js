@@ -53,8 +53,9 @@ class LoginBox extends Component {
 			};
 
 			axios
-				.post('user/verify', userInfo)
-				.then(res => alert(res.data.success ? 'Access Granted! :)' : 'Acces Denied. :('));
+				.post('user/login', userInfo)
+				.then(res =>
+					alert(res.data.success ? 'Access Granted! :)\n' + "User ID: " + res.data.userID : 'Acces Denied. :('));
 		}
 	};
 
