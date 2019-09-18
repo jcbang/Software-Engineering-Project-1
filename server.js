@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 // Connect to Mongo (this is promise based)
 mongoose
 	// .connect(db)
-	.connect(s3.db)
+	.connect(s3.db, { useNewUrlParser: true })
 	.then(() => console.log('MongoDB Connected!'))
 	.catch(err => console.log(err));
 
