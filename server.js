@@ -27,6 +27,10 @@ mongoose
 app.use('/user', user);
 app.use('/contacts', contacts);
 
-const port = process.env.PORT || 5000;
+// const port = process.env.PORT || 5000;
+// app.listen(port, () => console.log(`Server started up on ${port}`));
 
-app.listen(port, () => console.log(`Server started up on ${port}`));
+// Dynamic Heroku Port replaces the above two lines of code
+app.listen(process.env.PORT || 3000, function(){
+	console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+  });
