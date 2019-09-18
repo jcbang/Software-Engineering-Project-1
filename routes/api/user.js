@@ -13,7 +13,9 @@ router.post('/register', (req, res) => {
 		if (count == 0) {
 			const newUser = new UserAccounts({
 				username: req.body.username,
-				password: req.body.password
+				password: req.body.password,
+				firstName: req.body.firstName,
+				lastName: req.body.lastName
 			});
 			const id = newUser._id;
 			const newUserProfile = new UserProfiles({
@@ -33,9 +35,7 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-	// UserAccounts.find({userID: req.user._id})
-	//     .then(user => res.json(user))
-	//     .catch(err => console.log('Oh no something went wrong in routes/api/contacts.js at router.get()!'))
+	// todo: only allow to access if the user is logged in
 	res.json({ userID: req.user._id });
 });
 
