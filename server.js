@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const db = require('./config/keys').mongoURI; // our access key for the database
+// const db = require('./config/keys').mongoURI; // our access key for the database
 
 // Attempt to pull from Heroku
 const aws = require('aws-sdk');
@@ -18,8 +18,8 @@ app.use(bodyParser.json());
 
 // Connect to Mongo (this is promise based)
 mongoose
-	.connect(db)
-	//.connect(String(s3.db), { useNewUrlParser: true })
+	//.connect(db)
+	.connect(String(s3.db), { useNewUrlParser: true })
 	.then(() => console.log('MongoDB Connected!'))
 	.catch(err => console.log(err));
 
