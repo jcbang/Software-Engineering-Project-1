@@ -12,6 +12,11 @@ const UserProfiles = require('../../models/UserProfiles');
 // @desc Get ALL Contacts
 // @access Public
 
+// Attempting to fix get requests
+router.get('/', function(req, res){
+	res.redirect('/');
+ });
+
 // todo: can only access if the user is logged in
 router.get('/getAllContacts', (req, res) => {
 	// We can use Mongoose to return all Item models from the database.
