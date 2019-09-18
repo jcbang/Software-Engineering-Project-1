@@ -31,6 +31,6 @@ app.use('/contacts', contacts);
 // app.listen(port, () => console.log(`Server started up on ${port}`));
 
 // Dynamic Heroku Port replaces the above two lines of code
-app.listen(process.env.PORT || 3000, function(){
+app.listen(process.env.PORT || 5000, function(){
 	console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
   });
