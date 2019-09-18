@@ -14,20 +14,14 @@ const UserSchema = new Schema({
 	},
 	firstName: {
 		type: String,
-		trim: true
+		trim: true,
+		required: true
 	},
 	lastName: {
 		type: String,
-		trim: true
+		trim: true,
+		required: true
 	}
 });
-
-// UserSchema.methods.comparePassword = function(candidatePassword) {
-//     // bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-//     //     if (err) return cb(err);
-//     //     cb(null, isMatch);
-//     // });
-//     return candidatePassword === this.password;
-// };
 
 module.exports = UserAccounts = mongoose.model('useraccounts', UserSchema);
