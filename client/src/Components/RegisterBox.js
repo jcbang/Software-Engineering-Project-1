@@ -1,11 +1,14 @@
-import React, { Component } from "react";
-import logo from "../images/logo.jpg";
+import React, { Component } from 'react';
+import axios from 'axios';
+import logo from '../images/logo.jpg';
 
 class RegisterBox extends Component {
 	state = {
-		email: "",
-		password: "",
-		confirmPassword: "",
+		email: '',
+		firstName: '',
+		lastName: '',
+		password: '',
+		confirmPassword: '',
 		errors: [],
 		pwdStrength: null
 	};
@@ -34,54 +37,82 @@ class RegisterBox extends Component {
 		this.setState({ [e.target.name]: e.target.value });
 		this.clearValidationErr(e.target.name);
 
-		if (e.target.name == "password") {
-			this.setState({ pwdStrength: "weak" });
+		if (e.target.name == 'password') {
+			this.setState({ pwdStrength: 'weak' });
 			if (e.target.value.length > 6) {
-				this.setState({ pwdStrength: "medium" });
+				this.setState({ pwdStrength: 'medium' });
 			}
 			if (e.target.value.length > 12) {
-				this.setState({ pwdStrength: "strong" });
+				this.setState({ pwdStrength: 'strong' });
 			}
 		}
 	};
 
 	submitRegister = e => {
 		let registerSuccess = true;
+		const { email, firstName, lastName, password, confirmPassword } = this.state;
 
-		if (this.state.email == "") {
-			this.showValidationErr("email", "Please enter an email.");
+		if (email == '') {
+			this.showValidationErr('email', 'Please enter an email.');
 			registerSuccess = false;
 		}
-		if (this.state.password == "") {
-			this.showValidationErr("password", "Please enter a password.");
+		if (firstName == '') {
+			this.showValidationErr('firstName', 'Please enter your first name.');
 			registerSuccess = false;
 		}
-		if (this.state.confirmPassword == "") {
-			this.showValidationErr("confirmPassword", "Please confirm your password.");
+		if (lastName == '') {
+			this.showValidationErr('lastName', 'Please enter your last name.');
 			registerSuccess = false;
-		} else if (this.state.confirmPassword !== this.state.password) {
-			this.showValidationErr("confirmPassword", "Passwords do not match.");
+		}
+		if (password == '') {
+			this.showValidationErr('password', 'Please enter a password.');
+			registerSuccess = false;
+		}
+		if (confirmPassword == '') {
+			this.showValidationErr('confirmPassword', 'Please confirm your password.');
+			registerSuccess = false;
+		} else if (confirmPassword !== password) {
+			this.showValidationErr('confirmPassword', 'Passwords do not match.');
 			registerSuccess = false;
 		}
 
 		if (registerSuccess) {
-			alert("Email: " + this.state.email + "\n" + "Password: " + this.state.password);
+			const userInfo = {
+				username: this.state.email,
+				firstName: this.state.firstName,
+				lastName: this.state.lastName,
+				password: this.state.password
+			};
+
+			axios
+				.post('user/register', userInfo)
+				.then(res =>
+					alert(res.data.success ? 'Registered! :)' : 'Registration failed. :(\n' + res.data.message))
+			// alert('First name: ' + firstName + '\n' + 'Last name: ' + lastName + '\n' + 'Email: ' + email + '\n' + 'Password: ' + password);
 		}
 	};
 
 	render() {
-		let passwordErr = null,
-			emailErr = null,
+		let emailErr = null,
+			firstNameError = null,
+			lastNameError = null,
+			passwordErr = null,
 			confirmPasswordErr = null;
 
 		for (let err of this.state.errors) {
-			if (err.elm == "email") {
+			if (err.elm == 'email') {
 				emailErr = err.msg;
 			}
-			if (err.elm == "password") {
+			if (err.elm == 'firstName') {
+				firstNameError = err.msg;
+			}
+			if (err.elm == 'lastName') {
+				lastNameError = err.msg;
+			}
+			if (err.elm == 'password') {
 				passwordErr = err.msg;
 			}
-			if (err.elm == "confirmPassword") {
+			if (err.elm == 'confirmPassword') {
 				confirmPasswordErr = err.msg;
 			}
 		}
@@ -91,11 +122,11 @@ class RegisterBox extends Component {
 			pwdStrong = false;
 
 		switch (this.state.pwdStrength) {
-			case "strong":
+			case 'strong':
 				pwdStrong = true;
-			case "medium":
+			case 'medium':
 				pwdMedium = true;
-			case "weak":
+			case 'weak':
 				pwdWeak = true;
 		}
 
@@ -104,6 +135,30 @@ class RegisterBox extends Component {
 				<img src={logo} className="logo-img" alt="logo"></img>
 
 				<div className="header">Register</div>
+
+				<div className="input-group">
+					<label htmlFor="username">First Name</label>
+					<input
+						type="text"
+						name="firstName"
+						className="login-input"
+						placeholder="First Name"
+						onChange={this.onChange}
+					/>
+					<small className="danger-error">{firstNameError ? firstNameError : ''}</small>
+				</div>
+
+				<div className="input-group">
+					<label htmlFor="username">Last Name</label>
+					<input
+						type="text"
+						name="lastName"
+						className="login-input"
+						placeholder="Last Name"
+						onChange={this.onChange}
+					/>
+					<small className="danger-error">{lastNameError ? lastNameError : ''}</small>
+				</div>
 
 				<div className="box">
 					<div className="input-group">
@@ -115,7 +170,7 @@ class RegisterBox extends Component {
 							placeholder="Email"
 							onChange={this.onChange}
 						/>
-						<small className="danger-error">{emailErr ? emailErr : ""}</small>
+						<small className="danger-error">{emailErr ? emailErr : ''}</small>
 					</div>
 
 					<div className="input-group">
@@ -127,13 +182,13 @@ class RegisterBox extends Component {
 							placeholder="Password"
 							onChange={this.onChange}
 						/>
-						<small className="danger-error">{passwordErr ? passwordErr : ""}</small>
+						<small className="danger-error">{passwordErr ? passwordErr : ''}</small>
 
 						{this.state.password && (
 							<div className="password-state">
-								<div className={"pwd pwd-weak " + (pwdWeak ? "show" : "")}></div>
-								<div className={"pwd pwd-medium " + (pwdMedium ? "show" : "")}></div>
-								<div className={"pwd pwd-strong " + (pwdStrong ? "show" : "")}></div>
+								<div className={'pwd pwd-weak ' + (pwdWeak ? 'show' : '')}></div>
+								<div className={'pwd pwd-medium ' + (pwdMedium ? 'show' : '')}></div>
+								<div className={'pwd pwd-strong ' + (pwdStrong ? 'show' : '')}></div>
 							</div>
 						)}
 					</div>
@@ -148,7 +203,7 @@ class RegisterBox extends Component {
 							onChange={this.onChange}
 						/>
 						<small className="danger-error">
-							{confirmPasswordErr ? confirmPasswordErr : ""}
+							{confirmPasswordErr ? confirmPasswordErr : ''}
 						</small>
 					</div>
 
