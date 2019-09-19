@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import logo from '../images/logo.jpg';
 
 class RegisterBox extends Component {
 	state = {
 		email: '',
+		firstName: '',
+		lastName: '',
 		password: '',
 		confirmPassword: '',
 		errors: [],
@@ -47,36 +50,64 @@ class RegisterBox extends Component {
 
 	submitRegister = e => {
 		let registerSuccess = true;
+		const { email, firstName, lastName, password, confirmPassword } = this.state;
 
-		if (this.state.email == '') {
+		if (email == '') {
 			this.showValidationErr('email', 'Please enter an email.');
 			registerSuccess = false;
 		}
-		if (this.state.password == '') {
+		if (firstName == '') {
+			this.showValidationErr('firstName', 'Please enter your first name.');
+			registerSuccess = false;
+		}
+		if (lastName == '') {
+			this.showValidationErr('lastName', 'Please enter your last name.');
+			registerSuccess = false;
+		}
+		if (password == '') {
 			this.showValidationErr('password', 'Please enter a password.');
 			registerSuccess = false;
 		}
-		if (this.state.confirmPassword == '') {
+		if (confirmPassword == '') {
 			this.showValidationErr('confirmPassword', 'Please confirm your password.');
 			registerSuccess = false;
-		} else if (this.state.confirmPassword !== this.state.password) {
+		} else if (confirmPassword !== password) {
 			this.showValidationErr('confirmPassword', 'Passwords do not match.');
 			registerSuccess = false;
 		}
 
 		if (registerSuccess) {
-			alert('Email: ' + this.state.email + '\n' + 'Password: ' + this.state.password);
+			const userInfo = {
+				username: this.state.email,
+				firstName: this.state.firstName,
+				lastName: this.state.lastName,
+				password: this.state.password
+			};
+
+			axios
+				.post('user/register', userInfo)
+				.then(res =>
+					alert(res.data.success ? 'Registered! :)' : 'Registration failed. :(\n' + res.data.message))
+			// alert('First name: ' + firstName + '\n' + 'Last name: ' + lastName + '\n' + 'Email: ' + email + '\n' + 'Password: ' + password);
 		}
 	};
 
 	render() {
-		let passwordErr = null,
-			emailErr = null,
+		let emailErr = null,
+			firstNameError = null,
+			lastNameError = null,
+			passwordErr = null,
 			confirmPasswordErr = null;
 
 		for (let err of this.state.errors) {
 			if (err.elm == 'email') {
 				emailErr = err.msg;
+			}
+			if (err.elm == 'firstName') {
+				firstNameError = err.msg;
+			}
+			if (err.elm == 'lastName') {
+				lastNameError = err.msg;
 			}
 			if (err.elm == 'password') {
 				passwordErr = err.msg;
@@ -104,6 +135,30 @@ class RegisterBox extends Component {
 				<img src={logo} className="logo-img" alt="logo"></img>
 
 				<div className="header">Register</div>
+
+				<div className="input-group">
+					<label htmlFor="username">First Name</label>
+					<input
+						type="text"
+						name="firstName"
+						className="login-input"
+						placeholder="First Name"
+						onChange={this.onChange}
+					/>
+					<small className="danger-error">{firstNameError ? firstNameError : ''}</small>
+				</div>
+
+				<div className="input-group">
+					<label htmlFor="username">Last Name</label>
+					<input
+						type="text"
+						name="lastName"
+						className="login-input"
+						placeholder="Last Name"
+						onChange={this.onChange}
+					/>
+					<small className="danger-error">{lastNameError ? lastNameError : ''}</small>
+				</div>
 
 				<div className="box">
 					<div className="input-group">
