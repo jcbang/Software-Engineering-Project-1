@@ -1,4 +1,4 @@
 client/node_modules
 client/.vscode
-node_modules
-config
+backend/node_modules
+backend/config
