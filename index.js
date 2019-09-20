@@ -4,7 +4,6 @@ const cors = require('cors');
 const path = require('path');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
-// const db = require('./config/keys').mongoURI; // our access key for the database
 const mongoose = require('mongoose');
 
 // Create the server using express
@@ -16,11 +15,21 @@ app.use(cors());
 // Serve static files from the React frontend app
 app.use(express.static(path.join(__dirname, 'client/build')))
 
-// Connect to Mongo (this is promise based)
-console.log("Connecting to mongoDB with: " + process.env.mongoURI);
+// Loads keys based on production deploy or localhost
+var db;
+var env = process.env.NODE_ENV || 'dev';
+switch (env) {
+	case 'dev':
+		db = require('./config/keys').mongoURI; // our access key for the database
+		break;
+	case 'prod':
+		db = process.env.mongoURI;
+		break;
+}
+
+// Connect to Mongo
 mongoose
-	//.connect(db)
-	.connect(String(process.env.mongoURI), { useNewUrlParser: true })
+	.connect(String(db), { useNewUrlParser: true })
 	.then(() => console.log('MongoDB Connected!'))
 	.catch(err => console.log(err));
 
