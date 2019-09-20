@@ -18,6 +18,7 @@ app.use(express.static(path.join(__dirname, 'client/build')))
 // Loads keys based on production deploy or localhost
 var db;
 var env = process.env.NODE_ENV || 'dev';
+console.log("Starting up the server in " + env + " mode");
 switch (env) {
 	case 'dev':
 		db = require('./config/keys').mongoURI; // our access key for the database
