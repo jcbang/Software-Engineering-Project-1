@@ -1,3 +1,5 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = false
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -29,18 +31,6 @@ mongoose
 // Use routes
 app.use('/api/user', user);
 app.use('/api/contacts', contacts);
-
-// API calls
-app.get('/api/hello', (req, res) => {
-	res.send({ express: 'Hello From Express' });
-  });
-  
-app.post('/api/world', (req, res) => {
-	console.log(req.body);
-	res.send(
-	  `I received your POST request. This is what you sent me: ${req.body.post}`,
-	);
-});
 
 // Anything that doesn't match the above, send back the index.html file
 app.get('*', (req, res) => {

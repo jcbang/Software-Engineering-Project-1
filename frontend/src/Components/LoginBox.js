@@ -2,6 +2,15 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import logo from '../images/logo.jpg';
 
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+const https = require('https');
+
+const instance = axios.create({
+	httpsAgent: new https.Agent({  
+	  rejectUnauthorized: false
+	})
+});
+
 class LoginBox extends Component {
 	state = {
 		email: '',
@@ -49,13 +58,26 @@ class LoginBox extends Component {
 		if (loginSuccess) {
 			const userInfo = {
 				username: this.state.email,
-				password: this.state.password
+				password: this.state.password,
 			};
 
-			axios
+			/*
+			const userInfo = new https.Agent({  
+				username: this.state.email,
+				password: this.state.password,
+				rejectUnauthorized: false
+			});
+			*/
+
+			instance
 				.post('/api/user/login', userInfo)
 				.then(res =>
 					alert(res.data.success ? 'Access Granted! :)\n' + "User ID: " + res.data.userID : 'Acces Denied. :('));
+
+			//axios
+			//	.post('/api/user/login', userInfo)
+			//	.then(res =>
+			//		alert(res.data.success ? 'Access Granted! :)\n' + "User ID: " + res.data.userID : 'Acces Denied. :('));
 		}
 	};
 
