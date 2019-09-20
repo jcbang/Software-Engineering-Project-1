@@ -53,7 +53,7 @@ class LoginBox extends Component {
 			};
 
 			axios
-				.post('/api/user/login', userInfo)
+				.post('https://summit-contact-manager-api.herokuapp.com/api/user/login', userInfo)
 				.then(res =>
 					alert(res.data.success ? 'Access Granted! :)\n' + "User ID: " + res.data.userID : 'Acces Denied. :('));
 		}
