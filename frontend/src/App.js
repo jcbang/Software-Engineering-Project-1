@@ -10,18 +10,16 @@ class App extends Component {
 		isRegisterOpen: false
 	};
 
-	componentDidMount() {
-		this.callApi()
-		  .then(res => this.setState({ response: res.express }))
-		  .catch(err => console.log(err));
-	}
+	componentDidMount = () => this.fetchAPIMessage();
 
-	callApi = async () => {
-		const response = await fetch('/api/hello');
-		const body = await response.json();
-		if (response.status !== 200) throw Error(body.message);
-		
-		return body;
+	fetchAPIMessage = async () => {
+	  try {
+		const res = await fetch('/api/hello');
+		const { message } = await res.json();
+		this.setState({ message });
+	  } catch (err) {
+		console.error(err);
+	  }
 	};
 
 	showLoginBox = () => {
