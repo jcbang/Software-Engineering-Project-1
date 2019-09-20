@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const db = require('./config/keys').mongoURI; // our access key for the database
+const path = require('path');
 
 // Attempt to pull from Heroku
 const aws = require('aws-sdk');
