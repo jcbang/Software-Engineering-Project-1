@@ -5,6 +5,15 @@ import ReactDOM from 'react-dom';
 import './sass/_loginSty.scss';
 
 class App extends Component {
+	
+	callApi = async () => {
+		const response = await fetch('/api/hello');
+		const body = await response.json();
+		if (response.status !== 200) throw Error(body.message);
+		
+		return body;
+	};
+
 	state = {
 		isLoginOpen: true,
 		isRegisterOpen: false

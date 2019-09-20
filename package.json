@@ -4,10 +4,9 @@
 	"description": "Contact manager",
 	"main": "server.js",
 	"scripts": {
-		"client-install": "npm install --prefix client",
 		"start": "node server.js",
 		"server": "nodemon server.js",
-		"client": "npm start --prefix client",
+		"client": "cd frontend && npm start",
 		"dev": "concurrently \"npm run server\" \"npm run client\""
 	},
 	"author": "POOSD Group 4",
