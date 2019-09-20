@@ -27,8 +27,8 @@ mongoose
 	.catch(err => console.log(err));
 
 // Use routes
-// app.use('/api/user', user);
-// app.use('/api/contacts', contacts);
+app.use('/api/user', user);
+app.use('/api/contacts', contacts);
 
 // API calls
 app.get('/api/hello', (req, res) => {
