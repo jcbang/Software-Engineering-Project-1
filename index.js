@@ -23,7 +23,7 @@ switch (env) {
 	case 'dev':
 		db = require('./config/keys').mongoURI; // our access key for the database
 		break;
-	case 'prod':
+	case 'production':
 		db = process.env.mongoURI;
 		break;
 }
