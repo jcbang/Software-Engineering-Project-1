@@ -39,15 +39,13 @@ app.post('/api/world', (req, res) => {
 	);
 });
 
-if (process.env.NODE_ENV === 'production') {
-	// Serve any static files
-	app.use(express.static(path.join(__dirname, 'frontend/build')));
-	  
-	// Handle React routing, return all requests to React app
-	app.get('*', function(req, res) {
-	  res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
-	});
-}
+app.use(express.static(path.join(__dirname, 'frontend/public')));
+
+// Handle React routing, return all requests to React app
+app.get('*', function(req, res) {
+	res.sendFile(path.join(__dirname, 'frontend/public', 'index.html'));
+});
+
 // Dynamic Heroku Port replaces the above two lines of code
 app.listen(process.env.PORT || 5000, function(){
 	console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
