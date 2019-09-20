@@ -5,7 +5,7 @@
 	"main": "server.js",
 	"homepage": "https://summit-contact-manager.herokuapp.com/",
 	"scripts": {
-		"start": "node server.js",
+		"start": "NODE_ENV=production node server.js",
 		"heroku-postbuild": "cd frontend && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
 		"server": "node server.js",
 		"client": "cd frontend && npm start",
