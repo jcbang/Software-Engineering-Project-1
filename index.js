@@ -37,8 +37,14 @@ mongoose
 // Import the routes
 const routes = require('./routes');
 
-// Login API
-app.post('/api/user/login', routes.postLogin);
+// User APIs
+app.post('/api/user/login', routes.postUserLogin);
+app.post('/api/user/register', routes.postUserRegister);
+app.post('/api/user/logout', routes.postUserLogout);
+
+// Contacts APIs
+app.post('/api/contacts/getallcontacts/:userID', routes.postContactsGetAllContacts);
+app.post('/api/contacts/add/:userID', routes.postContactsAdd);
 
 // Serve our api route /cow that returns a custom talking text cow
 app.get('/api/cow/:say', cors(), async (req, res, next) => {

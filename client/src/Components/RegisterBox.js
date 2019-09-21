@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import logo from '../images/logo.jpg';
 
 class RegisterBox extends Component {
@@ -84,12 +84,12 @@ class RegisterBox extends Component {
 				password: this.state.password
 			};
 
-			//axios
-			//	.post('user/register', userInfo)
-			//	.then(res =>
-			//		alert(res.data.success ? 'Registered! :)' : 'Registration failed. :(\n' + res.data.message))
+			axios
+				.post('api/user/register', userInfo)
+				.then(res =>
+					alert(res.data.success ? 'Registered! :)' : 'Registration failed. :(\n' + res.data.message))
 			
-			alert('First name: ' + firstName + '\n' + 'Last name: ' + lastName + '\n' + 'Email: ' + email + '\n' + 'Password: ' + password);
+			// alert('First name: ' + firstName + '\n' + 'Last name: ' + lastName + '\n' + 'Email: ' + email + '\n' + 'Password: ' + password);
 		}
 	};
 

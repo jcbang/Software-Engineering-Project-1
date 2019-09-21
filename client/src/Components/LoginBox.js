@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import logo from '../images/logo.jpg';
 
 class LoginBox extends Component {
@@ -52,12 +52,12 @@ class LoginBox extends Component {
 				password: this.state.password,
 			};
 
-			//axios
-			//	.post('/api/user/login', userInfo)
-			//	.then(res =>
-			//		alert(res.data.success ? 'Access Granted! :)\n' + "User ID: " + res.data.userID : 'Acces Denied. :('));
+			axios
+				.post('/api/user/login', userInfo)
+				.then(res =>
+					alert(res.data.success ? 'Access Granted! :)\n' + "User ID: " + res.data.userID : 'Acces Denied. :('));
 
-			alert('Username: ' + this.state.email + '\n' + 'Password: ' + this.state.password + '\n');
+			// alert('Username: ' + this.state.email + '\n' + 'Password: ' + this.state.password + '\n');
 		}
 	};
 
