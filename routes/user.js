@@ -61,7 +61,8 @@ exports.postUserLogin = async (req, res) => {
 			return res.send({
 				success: true,
 				message: 'Valid sign in',
-				userID: user._id
+				userID: user._id,
+				sessionID: doc._id
 			});
 		});
 	});
@@ -158,12 +159,12 @@ exports.postUserRegister = async (req, res) => {
 exports.postUserLogout = async (req, res) => {
 	// Get the token
 	const { query } = req;
-	const { userID
+	const { sessionID
 	} = query;
-	// ?userID=test
-	// Verify the userID is one of a kind and it's not deleted.
+	// ?sessionID=test
+	// Verify the sessionID is one of a kind and it's not deleted.
 	UserSession.findOneAndUpdate({
-		_id: userID,
+		_id: sessionID,
 		isDeleted: false
 	}, {
 		$set: {
