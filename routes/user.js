@@ -61,7 +61,7 @@ exports.postUserLogin = async (req, res) => {
 			return res.send({
 				success: true,
 				message: 'Valid sign in',
-				userID: doc._id
+				userID: user._id
 			});
 		});
 	});
