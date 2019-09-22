@@ -1,5 +1,5 @@
 const { postUserLogin, postUserRegister, postUserLogout } = require('./user');
-const { postContactsGetAllContacts, postContactsAdd, postLogout } = require('./contacts');
+const { postContactsGetAllContacts, postContactsAdd, postContactsDelete } = require('./contacts');
 
 // User
 exports.postUserLogin = async (req, res) => {
@@ -16,6 +16,9 @@ exports.postUserLogout = async (req, res) => {
 exports.postContactsGetAllContacts = async (req, res) => {
 	await postContactsGetAllContacts(req, res);
 };
-  exports.postContactsAdd = async (req, res) => {
+exports.postContactsAdd = async (req, res) => {
 	  await postContactsAdd(req, res);
+};
+exports.postContactsDelete = async (req, res) => {
+	await postContactsDelete(req, res);
 };
