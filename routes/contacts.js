@@ -42,7 +42,7 @@ exports.postContactsAdd = async (req, res) => {
 // @desc Delete an item
 // @access Public
 // todo: fix it : Anthony's code
-exports.postContactsAdd = async (req, res) => {
+exports.postContactsDelete = async (req, res) => {
 	// req.params.id fetches it from the URL
 	// Also nested promises lol
 	UserProfiles.findById(req.params.id)
