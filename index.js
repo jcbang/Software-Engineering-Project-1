@@ -46,6 +46,7 @@ app.post('/api/user/logout', routes.postUserLogout);
 app.post('/api/contacts/getallcontacts/:userID', routes.postContactsGetAllContacts);
 app.post('/api/contacts/add/:userID', routes.postContactsAdd);
 app.post('/api/contacts/delete/:id', routes.postContactsDelete);
+app.post('/api/contacts/update/:id', routes.postContactsUpdate);
 
 // Serve our api route /cow that returns a custom talking text cow
 app.get('/api/cow/:say', cors(), async (req, res, next) => {

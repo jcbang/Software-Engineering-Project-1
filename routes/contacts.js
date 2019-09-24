@@ -1,13 +1,5 @@
 const UserProfiles = require('../models/UserProfiles');
 
-// link: contacts
-
-//localhost:5000/contacts/
-
-// @route GET items
-// @desc Get ALL Contacts
-// @access Public
-
 // todo: only authenticated users can access
 exports.postContactsGetAllContacts = async (req, res) => {
 	UserProfiles.find({ userID: req.params.userID })
@@ -19,8 +11,6 @@ exports.postContactsGetAllContacts = async (req, res) => {
 
 // todo: only authenticated users can access
 exports.postContactsAdd = async (req, res) => {
-	console.log("testing")
-	console.log(req.params)
 	const newContact = new UserProfiles({
 		userID: req.params.userID,
 		firstName: req.body.firstName,
@@ -38,14 +28,27 @@ exports.postContactsAdd = async (req, res) => {
 	newContact.save().then(contact => res.json(contact));
 };
 
-// @route Delete api/contacts/:id
-// @desc Delete an item
-// @access Public
-// todo: fix it : Anthony's code
 exports.postContactsDelete = async (req, res) => {
-	// req.params.id fetches it from the URL
-	// Also nested promises lol
 	UserProfiles.findById(req.params.id)
 		.then(contact => contact.remove().then(() => res.json({ success: true })))
 		.catch(err => res.status(404).json({ success: false, error: err })); // Return a 404 if you try to delete an item that doesnt exist
+};
+
+exports.postContactsUpdate = async (req, res) => {
+	UserProfiles.findById(req.params.id, function(error, contact) {
+		if (!contact)
+			res.status(404).send("Contact is not found.");
+		else {
+			contact.firstName = req.body.firstName;
+			contact.lastName = req.body.lastName;
+			contact.phone = req.body.phone;
+			contact.company = req.body.company;
+			contact.address.street = req.body.address.street;
+			contact.address.city = req.body.address.city;
+			contact.address.state = req.body.address.state;
+			contact.address.zip = req.body.address.zip;
+		}
+		contact.save().then(newContact => res.json(newContact));
+	});
+
 };
