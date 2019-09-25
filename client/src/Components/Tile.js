@@ -1,10 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
-import CollapsedTile from './CollapsedTile';
-import ExpandedTile from './ExpandedTile';
-import '../sass/_loginSty.scss';
-
 import {
 	Button,
 	Card,
@@ -15,90 +9,216 @@ import {
 	CardBody,
 	CardFooter,
 	CardText,
+	Modal,
+	ModalBody,
+	ModalFooter,
 	FormGroup,
 	Form,
+	Label,
 	Input,
 	Row,
 	Col
 } from 'reactstrap';
 
-class Tile extends Component {
+class CollapsedTile extends Component {
 	state = {
-		isCollapsed: true,
-		isExpanded: false
+		name: '',
+		email: '',
+		phone: '',
+		street: '',
+		city: '',
+		zipcode: '',
+		modal: false,
+		modalEditable: false
 	};
 
-	expandCard = () => {
+	componentDidMount() {
 		this.setState({
-			isCollapsed: false,
-			isExpanded: true
+			name: this.props.user.name,
+			email: this.props.user.email,
+			phone: this.props.user.phone,
+			street: this.props.user.address.street,
+			city: this.props.user.address.city,
+			zipcode: this.props.user.address.zipcode
 		});
-	};
+	}
 
-	collapseCard = () => {
-		this.setState({
-			isCollapsed: true,
-			isExpanded: false
-		});
+	handleExpand = () => {
+		this.props.handleExpand();
 	};
 
 	deleteContact = () => {
 		if (window.confirm('Are you sure you wish to delete this item?')) alert('contact deleted :(');
 	};
 
-	render() {
-		return (
-			<div>
-				<CollapsedTile
-					user={this.props.user}
-					tileStyle={collapseStyle}
-					handleEdit={this.editContact}
-					handleDelete={this.deleteContact}
-				/>
-			</div>
-
-			// <div>
-			// 	{this.state.isCollapsed && (
-			// 		<CollapsedTile
-			// 			user={this.props.user}
-			// 			tileStyle={collapseStyle}
-			// 			handleExpand={this.expandCard}
-			// 		/>
-			// 	)}
-			// 	{this.state.isExpanded && (
-			// 		<ExpandedTile
-			// 			user={this.props.user}
-			// 			tileStyle={expandStyle}
-			// 			handleCollapse={this.collapseCard}
-			// 			handleDelete={this.deleteContact}
-			// 		/>
-			// 	)}
-			// </div>
+	editContact = () => {
+		alert(
+			'Name: ' +
+				this.state.name +
+				'\n' +
+				'Email: ' +
+				this.state.email +
+				'\n' +
+				'Phone: ' +
+				this.state.phone +
+				'\n' +
+				'Address: \n' +
+				this.state.street +
+				'\n' +
+				this.state.city +
+				', ' +
+				this.state.zipcode
 		);
+	};
+
+	toggleModal = () => {
+		this.setState(prevState => ({
+			modal: !prevState.modal,
+			modalEditable: false
+		}));
+	};
+
+	toggleEditable = () => {
+		this.setState(prevState => ({
+			modalEditable: !prevState.modalEditable
+		}));
+	};
+
+	onChange = e => {
+		this.setState({ [e.target.name]: e.target.value });
+	};
+
+	render() {
+		if (this.state.modalEditable) {
+			return (
+				<div>
+					<Card onClick={this.toggleModal} style={this.props.tileStyle}>
+						<CardBody>{this.props.user.name}</CardBody>
+						<Modal isOpen={this.state.modal} toggle={this.toggleModal}>
+							<ModalBody>
+								<Button close onClick={this.toggleModal} />
+								<h2>
+									<input
+										type='text'
+										name='name'
+										defaultValue={this.state.name}
+										onChange={this.onChange}
+									/>
+								</h2>
+								<Row>
+									<Col>
+										<b>Email</b> <br />
+										<input
+											type='text'
+											name='email'
+											defaultValue={this.state.email}
+											onChange={this.onChange}
+										/>
+									</Col>
+									<Col>
+										<b>Phone Number</b> <br />
+										<input
+											type='text'
+											name='phone'
+											defaultValue={this.state.phone}
+											onChange={this.onChange}
+										/>
+									</Col>
+								</Row>{' '}
+								<br />
+								<b>Address</b> <br />
+								<input
+									type='text'
+									name='street'
+									defaultValue={this.state.street}
+									onChange={this.onChange}
+								/>
+								<br />
+								{/* {this.state.street} <br /> */}
+								<input
+									type='text'
+									name='city'
+									defaultValue={this.state.city}
+									onChange={this.onChange}
+								/>
+								,{' '}
+								<input
+									type='text'
+									name='zipode'
+									defaultValue={this.state.zipcode}
+									onChange={this.onChange}
+								/>
+							</ModalBody>
+							<ModalFooter>
+								<Button
+									style={{ padding: '3px' }}
+									outline
+									color='info'
+									onClick={this.toggleEditable}
+								>
+									Cancel
+								</Button>
+								<Button
+									style={{ padding: '3px' }}
+									outline
+									color='success'
+									onClick={this.editContact}
+								>
+									Save
+								</Button>
+							</ModalFooter>
+						</Modal>
+					</Card>
+				</div>
+			);
+		} else {
+			return (
+				<div>
+					<Card onClick={this.toggleModal} style={this.props.tileStyle}>
+						<CardBody>{this.state.name}</CardBody>
+						<Modal isOpen={this.state.modal} toggle={this.toggleModal}>
+							<ModalBody>
+								<Button close onClick={this.toggleModal} />
+								<h2>{this.state.name}</h2>
+								<Row>
+									<Col>
+										<b>Email</b> <br />
+										{this.state.email}
+									</Col>
+									<Col>
+										<b>Phone Number</b> <br />
+										{this.state.phone}
+									</Col>
+								</Row>{' '}
+								<br />
+								<b>Address</b> <br />
+								{this.state.street} <br />
+								{this.state.city}, {this.state.zipcode}
+							</ModalBody>
+							<ModalFooter>
+								<Button
+									style={{ padding: '3px' }}
+									outline
+									color='info'
+									onClick={this.toggleEditable}
+								>
+									{this.state.modalEditable ? 'Cancel' : 'Edit'}
+								</Button>
+								<Button
+									style={{ padding: '3px' }}
+									outline
+									color='danger'
+									onClick={this.deleteContact}
+								>
+									Delete
+								</Button>
+							</ModalFooter>
+						</Modal>
+					</Card>
+				</div>
+			);
+		}
 	}
 }
 
-const collapseStyle = {
-	flexDirection: 'row',
-	textAlign: 'center',
-	borderRadius: '10px',
-	backgroundColor: '#3e3e42',
-	width: 'auto',
-	margin: '5px',
-	fontSize: 'calc(10px + 1vw)',
-	fontStyle: 'bold',
-	cursor: 'pointer'
-};
-
-const expandStyle = {
-	textAlign: 'left',
-	borderRadius: '10px',
-	padding: '15px',
-	backgroundColor: '#3e3e42',
-	minWidth: '21em',
-	width: 'auto',
-	height: 'auto',
-	margin: '5px'
-};
-
-export default Tile;
+export default CollapsedTile;

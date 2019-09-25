@@ -34,7 +34,7 @@ class Tiles extends Component {
 		let contactCards = this.state.users.map(user => {
 			return (
 				<Col sm='3'>
-					<Tile key={user.id} user={user} />
+					<Tile key={user.id} user={user} tileStyle={collapseStyle} />
 				</Col>
 			);
 		});
@@ -48,5 +48,17 @@ class Tiles extends Component {
 		// return this.state.users.map(user => <Tile key={user.id} user={user} />);
 	}
 }
+
+const collapseStyle = {
+	flexDirection: 'row',
+	textAlign: 'center',
+	borderRadius: '10px',
+	backgroundColor: '#3e3e42',
+	width: 'auto',
+	margin: '5px',
+	fontSize: 'calc(10px + 1vw)',
+	fontStyle: 'bold',
+	cursor: 'pointer'
+};
 
 export default Tiles;
