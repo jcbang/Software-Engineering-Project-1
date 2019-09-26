@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import './index.css'
+import * as serviceWorker from './serviceWorker';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import Home from './Home';
+import Tiles from './Components/Tiles';
+import 'bootstrap/dist/css/bootstrap.css';
 
-ReactDOM.render(<App />, document.getElementById('root'))
-registerServiceWorker()
+ReactDOM.render(<Home />, document.getElementById('root'));
+
+serviceWorker.unregister();

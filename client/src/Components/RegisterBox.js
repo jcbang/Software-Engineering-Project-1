@@ -87,9 +87,12 @@ class RegisterBox extends Component {
 			axios
 				.post('api/user/register', userInfo)
 				.then(res =>
-					alert(res.data.success ? 'Registered! :)' : 'Registration failed. :(\n' + res.data.message))
-			
-			// alert('First name: ' + firstName + '\n' + 'Last name: ' + lastName + '\n' + 'Email: ' + email + '\n' + 'Password: ' + password);
+					alert(
+						res.data.success
+							? 'Registered! :)'
+							: 'Registration failed. :(\n' + res.data.message
+					)
+				);
 		}
 	};
 
@@ -132,61 +135,61 @@ class RegisterBox extends Component {
 		}
 
 		return (
-			<div className="inner-container">
-				<img src={logo} className="logo-img" alt="logo"></img>
+			<div className='inner-container'>
+				<img src={logo} className='logo-img' alt='logo'></img>
 
-				<div className="header">Register</div>
+				<div className='header'>Register</div>
 
-				<div className="input-group">
-					<label htmlFor="username">First Name</label>
+				<div className='input-group'>
+					<label htmlFor='username'>First Name</label>
 					<input
-						type="text"
-						name="firstName"
-						className="login-input"
-						placeholder="First Name"
+						type='text'
+						name='firstName'
+						className='login-input'
+						placeholder='First Name'
 						onChange={this.onChange}
 					/>
-					<small className="danger-error">{firstNameError ? firstNameError : ''}</small>
+					<small className='danger-error'>{firstNameError ? firstNameError : ''}</small>
 				</div>
 
-				<div className="input-group">
-					<label htmlFor="username">Last Name</label>
+				<div className='input-group'>
+					<label htmlFor='username'>Last Name</label>
 					<input
-						type="text"
-						name="lastName"
-						className="login-input"
-						placeholder="Last Name"
+						type='text'
+						name='lastName'
+						className='login-input'
+						placeholder='Last Name'
 						onChange={this.onChange}
 					/>
-					<small className="danger-error">{lastNameError ? lastNameError : ''}</small>
+					<small className='danger-error'>{lastNameError ? lastNameError : ''}</small>
 				</div>
 
-				<div className="box">
-					<div className="input-group">
-						<label htmlFor="username">Email</label>
+				<div className='box'>
+					<div className='input-group'>
+						<label htmlFor='username'>Email</label>
 						<input
-							type="text"
-							name="email"
-							className="login-input"
-							placeholder="Email"
+							type='text'
+							name='email'
+							className='login-input'
+							placeholder='Email'
 							onChange={this.onChange}
 						/>
-						<small className="danger-error">{emailErr ? emailErr : ''}</small>
+						<small className='danger-error'>{emailErr ? emailErr : ''}</small>
 					</div>
 
-					<div className="input-group">
-						<label htmlFor="password">Password</label>
+					<div className='input-group'>
+						<label htmlFor='password'>Password</label>
 						<input
-							type="password"
-							name="password"
-							className="login-input"
-							placeholder="Password"
+							type='password'
+							name='password'
+							className='login-input'
+							placeholder='Password'
 							onChange={this.onChange}
 						/>
-						<small className="danger-error">{passwordErr ? passwordErr : ''}</small>
+						<small className='danger-error'>{passwordErr ? passwordErr : ''}</small>
 
 						{this.state.password && (
-							<div className="password-state">
+							<div className='password-state'>
 								<div className={'pwd pwd-weak ' + (pwdWeak ? 'show' : '')}></div>
 								<div className={'pwd pwd-medium ' + (pwdMedium ? 'show' : '')}></div>
 								<div className={'pwd pwd-strong ' + (pwdStrong ? 'show' : '')}></div>
@@ -194,21 +197,21 @@ class RegisterBox extends Component {
 						)}
 					</div>
 
-					<div className="input-group">
-						<label htmlFor="password">Confirm Password</label>
+					<div className='input-group'>
+						<label htmlFor='password'>Confirm Password</label>
 						<input
-							type="password"
-							name="confirmPassword"
-							className="login-input"
-							placeholder="Confirm Password"
+							type='password'
+							name='confirmPassword'
+							className='login-input'
+							placeholder='Confirm Password'
 							onChange={this.onChange}
 						/>
-						<small className="danger-error">
+						<small className='danger-error'>
 							{confirmPasswordErr ? confirmPasswordErr : ''}
 						</small>
 					</div>
 
-					<button type="button" className="login-btn" onClick={this.submitRegister}>
+					<button type='button' className='login-btn' onClick={this.submitRegister}>
 						Register
 					</button>
 				</div>
