@@ -20,8 +20,9 @@ import {
 	Col
 } from 'reactstrap';
 
-class CollapsedTile extends Component {
+class Tile extends Component {
 	state = {
+		id: '',
 		name: '',
 		email: '',
 		phone: '',
@@ -34,6 +35,7 @@ class CollapsedTile extends Component {
 
 	componentDidMount() {
 		this.setState({
+			id: this.props.user.id,
 			name: this.props.user.name,
 			email: this.props.user.email,
 			phone: this.props.user.phone,
@@ -43,12 +45,8 @@ class CollapsedTile extends Component {
 		});
 	}
 
-	handleExpand = () => {
-		this.props.handleExpand();
-	};
-
-	deleteContact = () => {
-		if (window.confirm('Are you sure you wish to delete this item?')) alert('contact deleted :(');
+	handleDelete = () => {
+		this.props.handleDelete(this.state.id);
 	};
 
 	editContact = () => {
@@ -208,7 +206,7 @@ class CollapsedTile extends Component {
 									style={{ padding: '3px' }}
 									outline
 									color='danger'
-									onClick={this.deleteContact}
+									onClick={this.props.handleDelete}
 								>
 									Delete
 								</Button>
@@ -221,4 +219,4 @@ class CollapsedTile extends Component {
 	}
 }
 
-export default CollapsedTile;
+export default Tile;

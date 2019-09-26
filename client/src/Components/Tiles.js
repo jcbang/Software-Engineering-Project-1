@@ -30,11 +30,20 @@ class Tiles extends Component {
 			.then(res => this.setState({ users: res.data }));
 	}
 
+	deleteContact = () => {
+		if (window.confirm('Are you sure you wish to delete this item?')) alert('contact deleted :(');
+	};
+
 	render() {
 		let contactCards = this.state.users.map(user => {
 			return (
 				<Col sm='3'>
-					<Tile key={user.id} user={user} tileStyle={collapseStyle} />
+					<Tile
+						key={user.id}
+						user={user}
+						tileStyle={collapseStyle}
+						handleDelete={this.deleteContact}
+					/>
 				</Col>
 			);
 		});
