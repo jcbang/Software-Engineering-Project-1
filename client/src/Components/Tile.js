@@ -1,72 +1,60 @@
 import React, { Component } from 'react';
-import {
-	Button,
-	Card,
-	CardImg,
-	CardHeader,
-	CardTitle,
-	CardSubtitle,
-	CardBody,
-	CardFooter,
-	CardText,
-	Modal,
-	ModalBody,
-	ModalFooter,
-	FormGroup,
-	Form,
-	Label,
-	Input,
-	Row,
-	Col
-} from 'reactstrap';
+import axios from 'axios';
+import { Button, Card, CardBody, Modal, ModalBody, ModalFooter, Row, Col } from 'reactstrap';
 
 class Tile extends Component {
 	state = {
 		id: '',
-		name: '',
-		email: '',
+		firstName: '',
 		phone: '',
+		company: '',
 		street: '',
 		city: '',
-		zipcode: '',
+		state: '',
+		zip: '',
 		modal: false,
 		modalEditable: false
 	};
 
 	componentDidMount() {
 		this.setState({
-			id: this.props.user.id,
-			name: this.props.user.name,
-			email: this.props.user.email,
+			id: this.props.user._id,
+			firstName: this.props.user.firstName,
+			lastName: this.props.user.lastName,
 			phone: this.props.user.phone,
+			company: this.props.user.company,
 			street: this.props.user.address.street,
 			city: this.props.user.address.city,
-			zipcode: this.props.user.address.zipcode
+			state: this.props.user.address.state,
+			zip: this.props.user.address.zip
 		});
+
+		console.log(this.props.user);
 	}
 
 	handleDelete = () => {
-		this.props.handleDelete(this.state.id);
+		if (window.confirm('Are you sure you wish to delete this item?')) {
+			this.props.handleDelete(this.state.id);
+			this.toggleModal();
+		}
 	};
 
-	editContact = () => {
-		alert(
-			'Name: ' +
-				this.state.name +
-				'\n' +
-				'Email: ' +
-				this.state.email +
-				'\n' +
-				'Phone: ' +
-				this.state.phone +
-				'\n' +
-				'Address: \n' +
-				this.state.street +
-				'\n' +
-				this.state.city +
-				', ' +
-				this.state.zipcode
-		);
+	handleEdit = () => {
+		const contactInfo = {
+			firstName: this.state.firstName,
+			lastName: this.state.lastName,
+			phone: this.state.phone,
+			company: this.state.company,
+			address: {
+				street: this.state.street,
+				city: this.state.city,
+				state: this.state.state,
+				zip: this.state.zip
+			}
+		};
+
+		this.props.handleEdit(this.state.id, contactInfo);
+		this.toggleEditable();
 	};
 
 	toggleModal = () => {
@@ -91,33 +79,46 @@ class Tile extends Component {
 			return (
 				<div>
 					<Card onClick={this.toggleModal} style={this.props.tileStyle}>
-						<CardBody>{this.props.user.name}</CardBody>
+						<CardBody>
+							{this.props.user.firstName} <br />
+							{this.props.user.lastName}
+						</CardBody>
 						<Modal isOpen={this.state.modal} toggle={this.toggleModal}>
 							<ModalBody>
 								<Button close onClick={this.toggleModal} />
-								<h2>
-									<input
-										type='text'
-										name='name'
-										defaultValue={this.state.name}
-										onChange={this.onChange}
-									/>
-								</h2>
+								<Row>
+									<h2>
+										<input
+											type="text"
+											name="firstName"
+											defaultValue={this.state.firstName}
+											onChange={this.onChange}
+										/>
+									</h2>
+									<h2>
+										<input
+											type="text"
+											name="lastName"
+											defaultValue={this.state.lastName}
+											onChange={this.onChange}
+										/>
+									</h2>
+								</Row>
 								<Row>
 									<Col>
-										<b>Email</b> <br />
+										<b>Company</b> <br />
 										<input
-											type='text'
-											name='email'
-											defaultValue={this.state.email}
+											type="text"
+											name="company"
+											defaultValue={this.state.company}
 											onChange={this.onChange}
 										/>
 									</Col>
 									<Col>
 										<b>Phone Number</b> <br />
 										<input
-											type='text'
-											name='phone'
+											type="text"
+											name="phone"
 											defaultValue={this.state.phone}
 											onChange={this.onChange}
 										/>
@@ -126,24 +127,29 @@ class Tile extends Component {
 								<br />
 								<b>Address</b> <br />
 								<input
-									type='text'
-									name='street'
+									type="text"
+									name="street"
 									defaultValue={this.state.street}
 									onChange={this.onChange}
 								/>
 								<br />
-								{/* {this.state.street} <br /> */}
 								<input
-									type='text'
-									name='city'
+									type="text"
+									name="city"
 									defaultValue={this.state.city}
+									onChange={this.onChange}
+								/>
+								<input
+									type="text"
+									name="state"
+									defaultValue={this.state.state}
 									onChange={this.onChange}
 								/>
 								,{' '}
 								<input
-									type='text'
-									name='zipode'
-									defaultValue={this.state.zipcode}
+									type="text"
+									name="zip"
+									defaultValue={this.state.zip}
 									onChange={this.onChange}
 								/>
 							</ModalBody>
@@ -151,7 +157,7 @@ class Tile extends Component {
 								<Button
 									style={{ padding: '3px' }}
 									outline
-									color='info'
+									color="info"
 									onClick={this.toggleEditable}
 								>
 									Cancel
@@ -159,8 +165,8 @@ class Tile extends Component {
 								<Button
 									style={{ padding: '3px' }}
 									outline
-									color='success'
-									onClick={this.editContact}
+									color="success"
+									onClick={this.handleEdit}
 								>
 									Save
 								</Button>
@@ -173,15 +179,19 @@ class Tile extends Component {
 			return (
 				<div>
 					<Card onClick={this.toggleModal} style={this.props.tileStyle}>
-						<CardBody>{this.state.name}</CardBody>
+						<CardBody>
+							{this.state.firstName} <br /> {this.state.lastName}
+						</CardBody>
 						<Modal isOpen={this.state.modal} toggle={this.toggleModal}>
 							<ModalBody>
 								<Button close onClick={this.toggleModal} />
-								<h2>{this.state.name}</h2>
+								<h2>
+									{this.state.firstName} {this.state.lastName}{' '}
+								</h2>
 								<Row>
 									<Col>
-										<b>Email</b> <br />
-										{this.state.email}
+										<b>Company</b> <br />
+										{this.state.company}
 									</Col>
 									<Col>
 										<b>Phone Number</b> <br />
@@ -191,13 +201,14 @@ class Tile extends Component {
 								<br />
 								<b>Address</b> <br />
 								{this.state.street} <br />
-								{this.state.city}, {this.state.zipcode}
+								{this.state.city}, {this.state.state} <br />
+								{this.state.zip}
 							</ModalBody>
 							<ModalFooter>
 								<Button
 									style={{ padding: '3px' }}
 									outline
-									color='info'
+									color="info"
 									onClick={this.toggleEditable}
 								>
 									{this.state.modalEditable ? 'Cancel' : 'Edit'}
@@ -205,8 +216,8 @@ class Tile extends Component {
 								<Button
 									style={{ padding: '3px' }}
 									outline
-									color='danger'
-									onClick={this.props.handleDelete}
+									color="danger"
+									onClick={this.handleDelete}
 								>
 									Delete
 								</Button>

@@ -52,10 +52,13 @@ class LoginBox extends Component {
 				password: this.state.password
 			};
 
-			axios
-				.post('api/user/login', userInfo)
-				.then(res =>
-					alert(res.data.success ? 'Access Granted! :)\n' + "User ID: " + res.data.userID : 'Acces Denied. :('));
+			axios.post('api/user/login', userInfo).then(res => {
+				if (res.data.success) {
+					this.props.handleLogin(res.data.userID);
+				} else {
+					alert('Login failed.');
+				}
+			});
 		}
 	};
 

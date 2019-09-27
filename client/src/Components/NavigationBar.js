@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Nav, Navbar } from 'react-bootstrap';
+import { Nav, Navbar, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 
 const Styles = styled.div`
@@ -22,21 +22,24 @@ class NavigationBar extends Component {
 	render() {
 		return (
 			<Styles>
-				<Navbar expand='lg'>
-					<Navbar.Brand href='/'>Summit</Navbar.Brand>
-					<Navbar.Toggle aria-controls='basic-navbar-nav' />
-					<Navbar.Collapse id='basic-navbar-nav'>
-						<Nav className='ml-auto'>
+				<Navbar expand="lg">
+					<Navbar.Brand href="/">Summit</Navbar.Brand>
+					<Navbar.Toggle aria-controls="basic-navbar-nav" />
+					<Navbar.Collapse id="basic-navbar-nav">
+						<Nav className="ml-auto">
 							<Nav.Item>
 								<Nav.Link>
-									<Link to='/'>Home</Link>
+									<Link to="/">Home</Link>
 								</Nav.Link>
 							</Nav.Item>
 							<Nav.Item>
 								<Nav.Link>
-									<Link to='/userinfo'>User Info</Link>
+									<Link to="/userinfo">User Info</Link>
 								</Nav.Link>
 							</Nav.Item>
+							<Button variant="outline-danger" onClick={this.props.handleLogout}>
+								Logout
+							</Button>
 						</Nav>
 					</Navbar.Collapse>
 				</Navbar>

@@ -1,23 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import AddTile from './AddTile';
 import Tile from './Tile';
-import {
-	Button,
-	Container,
-	Card,
-	CardImg,
-	CardHeader,
-	CardTitle,
-	CardSubtitle,
-	CardBody,
-	CardFooter,
-	CardText,
-	FormGroup,
-	Form,
-	Input,
-	Row,
-	Col
-} from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 
 class Tiles extends Component {
 	state = {
@@ -26,23 +11,36 @@ class Tiles extends Component {
 
 	componentDidMount() {
 		axios
-			.get('http://jsonplaceholder.typicode.com/users')
+			.post('/api/contacts/getallcontacts/' + this.props.userID, { userID: this.props.userID })
 			.then(res => this.setState({ users: res.data }));
 	}
 
-	deleteContact = () => {
-		if (window.confirm('Are you sure you wish to delete this item?')) alert('contact deleted :(');
+	deleteContact = id => {
+		axios
+			.post('/api/contacts/delete/' + id)
+			.then(this.setState({ users: [...this.state.users.filter(user => user._id !== id)] }));
+	};
+
+	editContact = (id, newContact) => {
+		axios.post('/api/contacts/update/' + id, newContact);
+	};
+
+	addContact = newContact => {
+		axios
+			.post('/api/contacts/add/' + this.props.userID, newContact)
+			.then(this.setState({ users: [...this.state.users, newContact] }));
 	};
 
 	render() {
 		let contactCards = this.state.users.map(user => {
 			return (
-				<Col sm='3'>
+				<Col sm="2">
 					<Tile
-						key={user.id}
+						key={user._id}
 						user={user}
 						tileStyle={collapseStyle}
 						handleDelete={this.deleteContact}
+						handleEdit={this.editContact}
 					/>
 				</Col>
 			);
@@ -50,7 +48,16 @@ class Tiles extends Component {
 
 		return (
 			<Container fluid>
-				<Row noGutters>{contactCards}</Row>
+				<Row noGutters>
+					<Col sm="2">
+						<AddTile
+							tileStyle={collapseStyle}
+							userID={this.props.userID}
+							handleAdd={this.addContact}
+						/>
+					</Col>
+					{contactCards}
+				</Row>
 			</Container>
 		);
 		// return <Tile />;
