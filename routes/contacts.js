@@ -1,6 +1,8 @@
 const UserProfiles = require('../models/UserProfiles');
 
 // todo: only authenticated users can access
+// All this does is return a JSON object within that object is a list of the contacts
+// It returns this list by only filtering contacts from MongoDB with the userID that matches the one of the logged in user
 exports.postContactsGetAllContacts = async (req, res) => {
 	UserProfiles.find({ userID: req.params.userID })
 		.then(contacts => res.json(contacts))
@@ -10,6 +12,8 @@ exports.postContactsGetAllContacts = async (req, res) => {
 };
 
 // todo: only authenticated users can access
+// Make the new contact form match all of this 
+// The userID should be passed along under the hood to the API. You won't have the user writing out their ID 
 exports.postContactsAdd = async (req, res) => {
 	const newContact = new UserProfiles({
 		userID: req.params.userID,
@@ -28,12 +32,15 @@ exports.postContactsAdd = async (req, res) => {
 	newContact.save().then(contact => res.json(contact));
 };
 
+// This will find a contact by their unique id (everything in the database has a unique id) and deletes them
 exports.postContactsDelete = async (req, res) => {
 	UserProfiles.findById(req.params.id)
 		.then(contact => contact.remove().then(() => res.json({ success: true })))
 		.catch(err => res.status(404).json({ success: false, error: err })); // Return a 404 if you try to delete an item that doesnt exist
 };
 
+// This will change the information of already exisiting contacting.
+// You just need to return all the contact information back to the API
 exports.postContactsUpdate = async (req, res) => {
 	UserProfiles.findById(req.params.id, function(error, contact) {
 		if (!contact)
