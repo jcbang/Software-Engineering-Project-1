@@ -15,6 +15,8 @@ exports.postContactsGetAllContacts = async (req, res) => {
 // Make the new contact form match all of this 
 // The userID should be passed along under the hood to the API. You won't have the user writing out their ID 
 exports.postContactsAdd = async (req, res) => {
+	console.log("TESTING");
+	console.log(req.body);
 	const newContact = new UserProfiles({
 		userID: req.params.userID,
 		firstName: req.body.firstName,
@@ -28,6 +30,8 @@ exports.postContactsAdd = async (req, res) => {
 			zip: req.body.address.zip
 		}
 	});
+
+	console.log(newContact);
 
 	newContact.save().then(contact => res.json(contact));
 };
