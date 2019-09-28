@@ -11,23 +11,23 @@ class Tiles extends Component {
 
 	componentDidMount() {
 		axios
-			.post('/api/contacts/getallcontacts/' + this.props.userID, { userID: this.props.userID })
+			.post('api/contacts/getallcontacts/' + this.props.userID, { userID: this.props.userID })
 			.then(res => this.setState({ users: res.data }));
 	}
 
 	deleteContact = id => {
 		axios
-			.post('/api/contacts/delete/' + id)
+			.post('api/contacts/delete/' + id)
 			.then(this.setState({ users: [...this.state.users.filter(user => user._id !== id)] }));
 	};
 
 	editContact = (id, newContact) => {
-		axios.post('/api/contacts/update/' + id, newContact);
+		axios.post('api/contacts/update/' + id, newContact);
 	};
 
 	addContact = newContact => {
 		axios
-			.post('/api/contacts/add/' + this.props.userID, newContact)
+			.post('api/contacts/add/' + this.props.userID, newContact)
 			.then(this.setState({ users: [...this.state.users, newContact] }));
 	};
 
