@@ -33,17 +33,22 @@ class Tiles extends Component {
 
 	render() {
 		let contactCards = this.state.users.map(user => {
-			return (
-				<Col sm="2">
-					<Tile
-						key={user._id}
-						user={user}
-						tileStyle={collapseStyle}
-						handleDelete={this.deleteContact}
-						handleEdit={this.editContact}
-					/>
-				</Col>
-			);
+			if (
+				user.firstName.toLowerCase().includes(this.props.search) ||
+				user.lastName.toLowerCase().includes(this.props.search)
+			) {
+				return (
+					<Col sm="2">
+						<Tile
+							key={user._id}
+							user={user}
+							tileStyle={collapseStyle}
+							handleDelete={this.deleteContact}
+							handleEdit={this.editContact}
+						/>
+					</Col>
+				);
+			}
 		});
 
 		return (

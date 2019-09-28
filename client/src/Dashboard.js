@@ -8,7 +8,7 @@ class Dashboard extends Component {
 	render() {
 		return (
 			<div>
-				<Tiles userID={this.props.userID} />
+				<Tiles userID={this.props.userID} search={this.props.search} />
 			</div>
 		);
 	}

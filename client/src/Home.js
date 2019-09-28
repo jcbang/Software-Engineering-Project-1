@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import axios from 'axios';
 import Dashboard from './Dashboard';
 import { UserInfo } from './UserInfo';
 import { NoMatch } from './NoMatch';
@@ -16,7 +17,8 @@ class Home extends Component {
 		isRegisterOpen: false,
 		isLoggedIn: false,
 		userID: '',
-		sessionID: ''
+		sessionID: '',
+		search: ''
 	};
 
 	showLoginBox = () => {
@@ -42,11 +44,17 @@ class Home extends Component {
 	};
 
 	doLogOut = sessionID => {
-		this.setState({
-			isLoggedIn: false,
-			userID: '',
-			sessionID: ''
-		});
+		axios.post('/api/user/logout', this.state.sessionID).then(
+			this.setState({
+				isLoggedIn: false,
+				userID: '',
+				sessionID: ''
+			})
+		);
+	};
+
+	onChange = e => {
+		this.setState({ [e.target.name]: e.target.value });
 	};
 
 	render() {
@@ -54,14 +62,16 @@ class Home extends Component {
 			return (
 				<React.Fragment>
 					<Router>
-						<NavigationBar handleLogout={this.doLogOut} />
+						<NavigationBar handleLogout={this.doLogOut} onChange={this.onChange} />
 						<Jumbotron />
 						<Layout>
 							<Switch>
 								<Route
 									exact
 									path="/"
-									component={() => <Dashboard userID={this.state.userID} />}
+									component={() => (
+										<Dashboard userID={this.state.userID} search={this.state.search} />
+									)}
 								/>
 								<Route path="/userinfo" component={UserInfo} />
 								<Route component={NoMatch} />

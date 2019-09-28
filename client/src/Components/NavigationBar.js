@@ -27,6 +27,12 @@ class NavigationBar extends Component {
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse id="basic-navbar-nav">
 						<Nav className="ml-auto">
+							<input
+								type="text"
+								name="search"
+								placeholder="Search"
+								onChange={this.props.onChange}
+							/>
 							<Nav.Item>
 								<Nav.Link>
 									<Link to="/">Home</Link>
