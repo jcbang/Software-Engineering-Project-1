@@ -31,8 +31,11 @@ const UserProfilesSchema = new Schema({
 	// So address.zip prints 32826 
 	// All of these values for the object properties are data type string
 	address: {
-		type: Map,
-		of: String
+		street: String,
+		city: String,
+		state: String,
+		zip: String
+
 	}
 });
 
