@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import Dashboard from './Dashboard';
-import { UserInfo } from './UserInfo';
 import { NoMatch } from './NoMatch';
 import { Layout } from './Components/Layout';
 import NavigationBar from './Components/NavigationBar';
-import Jumbotron from './Components/Jumbotron';
 import './sass/index.scss';
 import LoginBox from './Components/LoginBox';
 import RegisterBox from './Components/RegisterBox';
@@ -62,18 +60,22 @@ class Home extends Component {
 			return (
 				<React.Fragment>
 					<Router>
-						<NavigationBar handleLogout={this.doLogOut} onChange={this.onChange} />
-						<Jumbotron />
+						<NavigationBar
+							handleLogout={this.doLogOut}
+							onChange={this.onChange}
+						/>
 						<Layout>
 							<Switch>
 								<Route
 									exact
-									path="/"
+									path='/'
 									component={() => (
-										<Dashboard userID={this.state.userID} search={this.state.search} />
+										<Dashboard
+											userID={this.state.userID}
+											search={this.state.search}
+										/>
 									)}
 								/>
-								<Route path="/userinfo" component={UserInfo} />
 								<Route component={NoMatch} />
 							</Switch>
 						</Layout>
@@ -82,9 +84,9 @@ class Home extends Component {
 			);
 		} else {
 			return (
-				<div className="root-container">
-					<div className="login-container">
-						<div className="box-controller">
+				<div className='root-container'>
+					<div className='login-container'>
+						<div className='box-controller'>
 							<div
 								className={
 									'controller selected-controller-' +
@@ -106,8 +108,10 @@ class Home extends Component {
 							</div>
 						</div>
 
-						<div className="box-container">
-							{this.state.isLoginOpen && <LoginBox handleLogin={this.doLogIn} />}
+						<div className='box-container'>
+							{this.state.isLoginOpen && (
+								<LoginBox handleLogin={this.doLogIn} />
+							)}
 							{this.state.isRegisterOpen && <RegisterBox />}
 						</div>
 					</div>

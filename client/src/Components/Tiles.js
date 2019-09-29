@@ -11,14 +11,18 @@ class Tiles extends Component {
 
 	componentDidMount() {
 		axios
-			.post('api/contacts/getallcontacts/' + this.props.userID, { userID: this.props.userID })
+			.post('api/contacts/getallcontacts/' + this.props.userID, {
+				userID: this.props.userID
+			})
 			.then(res => this.setState({ users: res.data }));
 	}
 
 	deleteContact = id => {
-		axios
-			.post('api/contacts/delete/' + id)
-			.then(this.setState({ users: [...this.state.users.filter(user => user._id !== id)] }));
+		axios.post('api/contacts/delete/' + id).then(
+			this.setState({
+				users: [...this.state.users.filter(user => user._id !== id)]
+			})
+		);
 	};
 
 	editContact = (id, newContact) => {
@@ -38,7 +42,7 @@ class Tiles extends Component {
 				user.lastName.toLowerCase().includes(this.props.search)
 			) {
 				return (
-					<Col sm="2">
+					<Col sm='2'>
 						<Tile
 							key={user._id}
 							user={user}
@@ -54,9 +58,9 @@ class Tiles extends Component {
 		return (
 			<Container fluid>
 				<Row noGutters>
-					<Col sm="2">
+					<Col sm='2'>
 						<AddTile
-							tileStyle={collapseStyle}
+							tileStyle={addStyle}
 							userID={this.props.userID}
 							handleAdd={this.addContact}
 						/>
@@ -74,7 +78,19 @@ const collapseStyle = {
 	flexDirection: 'row',
 	textAlign: 'center',
 	borderRadius: '10px',
-	backgroundColor: '#3e3e42',
+	backgroundColor: '#ffffff',
+	width: 'auto',
+	margin: '5px',
+	fontSize: 'calc(10px + 1vw)',
+	fontStyle: 'bold',
+	cursor: 'pointer'
+};
+
+const addStyle = {
+	flexDirection: 'row',
+	textAlign: 'center',
+	borderRadius: '10px',
+	backgroundColor: '#97c4aa',
 	width: 'auto',
 	margin: '5px',
 	fontSize: 'calc(10px + 1vw)',

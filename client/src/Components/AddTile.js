@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Button, Card, CardBody, Modal, ModalBody, ModalFooter, Row, Col } from 'reactstrap';
+import {
+	Button,
+	Card,
+	CardBody,
+	Modal,
+	ModalBody,
+	ModalFooter,
+	Row,
+	Col
+} from 'reactstrap';
 
 class AddTile extends Component {
 	state = {
@@ -56,17 +65,17 @@ class AddTile extends Component {
 							<Row>
 								<h2>
 									<input
-										type="text"
-										name="firstName"
-										placeholder="First Name"
+										type='text'
+										name='firstName'
+										placeholder='First Name'
 										onChange={this.onChange}
 									/>
 								</h2>
 								<h2>
 									<input
-										type="text"
-										name="lastName"
-										placeholder="Last Name"
+										type='text'
+										name='lastName'
+										placeholder='Last Name'
 										onChange={this.onChange}
 									/>
 								</h2>
@@ -75,18 +84,18 @@ class AddTile extends Component {
 								<Col>
 									<b>Company</b> <br />
 									<input
-										type="text"
-										name="company"
-										placeholder="Company"
+										type='text'
+										name='company'
+										placeholder='Company'
 										onChange={this.onChange}
 									/>
 								</Col>
 								<Col>
 									<b>Phone Number</b> <br />
 									<input
-										type="text"
-										name="phone"
-										placeholder="Phone"
+										type='text'
+										name='phone'
+										placeholder='Phone'
 										onChange={this.onChange}
 									/>
 								</Col>
@@ -94,21 +103,37 @@ class AddTile extends Component {
 							<br />
 							<b>Address</b> <br />
 							<input
-								type="text"
-								name="street"
-								placeholder="Street"
+								type='text'
+								name='street'
+								placeholder='Street'
 								onChange={this.onChange}
 							/>
 							<br />
-							<input type="text" name="city" placeholder="City" onChange={this.onChange} />
-							<input type="text" name="state" placeholder="State" onChange={this.onChange} />
-							, <input type="text" name="zip" placeholder="Zip" onChange={this.onChange} />
+							<input
+								type='text'
+								name='city'
+								placeholder='City'
+								onChange={this.onChange}
+							/>
+							<input
+								type='text'
+								name='state'
+								placeholder='State'
+								onChange={this.onChange}
+							/>
+							,{' '}
+							<input
+								type='text'
+								name='zip'
+								placeholder='Zip'
+								onChange={this.onChange}
+							/>
 						</ModalBody>
 						<ModalFooter>
 							<Button
 								style={{ padding: '3px' }}
 								outline
-								color="success"
+								color='success'
 								onClick={this.handleAdd}
 							>
 								Save

@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Nav, Navbar, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 
 const Styles = styled.div`
 	.navbar {
-		background-color: #222;
+		background-color: #c9c9e0;
 	}
 
 	a,
 	.navbar-nav .navbar-brand .nav-link {
-		color: #bbb;
+		color: #252121;
 
 		&:hover {
-			color: white;
+			color: black;
 		}
 	}
 `;
@@ -22,28 +21,24 @@ class NavigationBar extends Component {
 	render() {
 		return (
 			<Styles>
-				<Navbar expand="lg">
-					<Navbar.Brand href="/">Summit</Navbar.Brand>
-					<Navbar.Toggle aria-controls="basic-navbar-nav" />
-					<Navbar.Collapse id="basic-navbar-nav">
-						<Nav className="ml-auto">
+				<Navbar expand='lg'>
+					<Navbar.Brand href='/'>Summit</Navbar.Brand>
+					<Navbar.Toggle aria-controls='basic-navbar-nav' />
+					<Navbar.Collapse id='basic-navbar-nav'>
+						<Nav className='ml-auto'>
 							<input
-								type="text"
-								name="search"
-								placeholder="Search"
+								type='text'
+								name='search'
+								placeholder='Search'
 								onChange={this.props.onChange}
+								style={{ marginRight: '3px' }}
 							/>
-							<Nav.Item>
-								<Nav.Link>
-									<Link to="/">Home</Link>
-								</Nav.Link>
-							</Nav.Item>
-							<Nav.Item>
-								<Nav.Link>
-									<Link to="/userinfo">User Info</Link>
-								</Nav.Link>
-							</Nav.Item>
-							<Button variant="outline-danger" onClick={this.props.handleLogout}>
+							<span></span>
+							<Button
+								variant='outline-danger'
+								onClick={this.props.handleLogout}
+								style={{ marginLeft: '3px' }}
+							>
 								Logout
 							</Button>
 						</Nav>

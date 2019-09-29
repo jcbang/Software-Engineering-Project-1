@@ -12,10 +12,20 @@ body {
 }
 
 body {
-	background-color: #3a352f;
-	#grad {
-		background-image: linear-gradient(to bottom right, red, yellow);
-	}
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	height: 100%;
+	width: 100%;
+	background-image: linear-gradient(
+			rgba(206, 117, 54, 0.5),
+			rgba(184, 76, 150, 0.5),
+			rgba(168, 111, 220, 0.5)
+		),
+		url('../images/background.jpg');
 }
 
 .container {
