@@ -4,7 +4,7 @@ import logo from '../images/logo.jpg';
 
 class LoginBox extends Component {
 	state = {
-		email: '',
+		username: '',
 		password: '',
 		errors: []
 	};
@@ -37,8 +37,8 @@ class LoginBox extends Component {
 	submitLogin = e => {
 		let loginSuccess = true;
 
-		if (this.state.email == '') {
-			this.showValidationErr('email', 'Please enter your email.');
+		if (this.state.username == '') {
+			this.showValidationErr('username', 'Please enter your username.');
 			loginSuccess = false;
 		}
 		if (this.state.password == '') {
@@ -48,7 +48,7 @@ class LoginBox extends Component {
 
 		if (loginSuccess) {
 			const userInfo = {
-				username: this.state.email,
+				username: this.state.username,
 				password: this.state.password
 			};
 
@@ -63,12 +63,12 @@ class LoginBox extends Component {
 	};
 
 	render() {
-		let emailErr = null,
+		let usernameErr = null,
 			passwordErr = null;
 
 		for (let err of this.state.errors) {
-			if (err.elm == 'email') {
-				emailErr = err.msg;
+			if (err.elm == 'username') {
+				usernameErr = err.msg;
 			}
 			if (err.elm == 'password') {
 				passwordErr = err.msg;
@@ -76,37 +76,37 @@ class LoginBox extends Component {
 		}
 
 		return (
-			<div className="inner-container">
-				<img src={logo} className="logo-img" alt="logo"></img>
+			<div className='inner-container'>
+				<img src={logo} className='logo-img' alt='logo'></img>
 
-				<div className="header">Login</div>
+				<div className='header'>Login</div>
 
-				<div className="box">
-					<div className="input-group">
-						<label htmlFor="username">Email</label>
+				<div className='box'>
+					<div className='input-group'>
+						<label htmlFor='username'>Username</label>
 						<input
-							type="text"
-							name="email"
-							className="login-input"
-							placeholder="Email"
+							type='text'
+							name='username'
+							className='login-input'
+							placeholder='Username'
 							onChange={this.onChange}
 						/>
-						<small className="danger-error">{emailErr ? emailErr : ''}</small>
+						<small className='danger-error'>{usernameErr ? usernameErr : ''}</small>
 					</div>
 
-					<div className="input-group">
-						<label htmlFor="password">Password</label>
+					<div className='input-group'>
+						<label htmlFor='password'>Password</label>
 						<input
-							type="password"
-							name="password"
-							className="login-input"
-							placeholder="Password"
+							type='password'
+							name='password'
+							className='login-input'
+							placeholder='Password'
 							onChange={this.onChange}
 						/>
-						<small className="danger-error">{passwordErr ? passwordErr : ''}</small>
+						<small className='danger-error'>{passwordErr ? passwordErr : ''}</small>
 					</div>
 
-					<button type="submit" className="login-btn" onClick={this.submitLogin}>
+					<button type='submit' className='login-btn' onClick={this.submitLogin}>
 						Login
 					</button>
 				</div>

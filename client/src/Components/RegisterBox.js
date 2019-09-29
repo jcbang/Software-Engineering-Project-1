@@ -4,7 +4,7 @@ import logo from '../images/logo.jpg';
 
 class RegisterBox extends Component {
 	state = {
-		email: '',
+		username: '',
 		firstName: '',
 		lastName: '',
 		password: '',
@@ -50,10 +50,10 @@ class RegisterBox extends Component {
 
 	submitRegister = e => {
 		let registerSuccess = true;
-		const { email, firstName, lastName, password, confirmPassword } = this.state;
+		const { username, firstName, lastName, password, confirmPassword } = this.state;
 
-		if (email == '') {
-			this.showValidationErr('email', 'Please enter an email.');
+		if (username == '') {
+			this.showValidationErr('username', 'Please enter an username.');
 			registerSuccess = false;
 		}
 		if (firstName == '') {
@@ -78,7 +78,7 @@ class RegisterBox extends Component {
 
 		if (registerSuccess) {
 			const userInfo = {
-				username: this.state.email,
+				username: this.state.username,
 				firstName: this.state.firstName,
 				lastName: this.state.lastName,
 				password: this.state.password
@@ -97,15 +97,15 @@ class RegisterBox extends Component {
 	};
 
 	render() {
-		let emailErr = null,
+		let usernameErr = null,
 			firstNameError = null,
 			lastNameError = null,
 			passwordErr = null,
 			confirmPasswordErr = null;
 
 		for (let err of this.state.errors) {
-			if (err.elm == 'email') {
-				emailErr = err.msg;
+			if (err.elm == 'username') {
+				usernameErr = err.msg;
 			}
 			if (err.elm == 'firstName') {
 				firstNameError = err.msg;
@@ -166,15 +166,15 @@ class RegisterBox extends Component {
 
 				<div className='box'>
 					<div className='input-group'>
-						<label htmlFor='username'>Email</label>
+						<label htmlFor='username'>Username</label>
 						<input
 							type='text'
-							name='email'
+							name='username'
 							className='login-input'
-							placeholder='Email'
+							placeholder='Username'
 							onChange={this.onChange}
 						/>
-						<small className='danger-error'>{emailErr ? emailErr : ''}</small>
+						<small className='danger-error'>{usernameErr ? usernameErr : ''}</small>
 					</div>
 
 					<div className='input-group'>
