@@ -20,7 +20,7 @@
 		"cowsay": "^1.4.0",
 		"express": "^4.17.1",
 		"helmet": "^3.21.1",
-		"mongoose": "^5.7.1"
+		"mongoose": "^5.7.5"
 	},
 	"engines": {
 		"node": "10.5.0"
